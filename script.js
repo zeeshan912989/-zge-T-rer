@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.setAttribute('data-index', idx);
                 
                 card.innerHTML = `
-                    <img src="${img.src}" alt="${img.title}" loading="lazy" class="lazy-load">
+                    <img data-src="${img.src}" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 4'%3E%3C/svg%3E" alt="${img.title}" class="lazy-load">
                     <div class="card-overlay">
                         <h3 class="card-title">${img.title}</h3>
                         <div class="card-bottom">
@@ -129,14 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
 
-                // Remove loading animation once image loads
-                const imageEl = card.querySelector('img');
-                if (imageEl.complete) {
-                    card.classList.remove('loading');
-                } else {
-                    imageEl.addEventListener('load', () => card.classList.remove('loading'));
-                }
-
                 // Click Card (open lightbox)
                 card.addEventListener('click', () => {
                     openLightbox(idx);
@@ -144,6 +136,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 galleryGrid.appendChild(card);
             });
+
+            // Set up Intersection Observer for true lazy loading of images
+            const lazyImages = galleryGrid.querySelectorAll('.lazy-load');
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        const parentCard = img.closest('.gallery-card');
+                        
+                        img.src = img.getAttribute('data-src');
+                        img.onload = () => {
+                            img.classList.add('loaded');
+                            if (parentCard) {
+                                parentCard.classList.remove('loading');
+                            }
+                        };
+                        observer.unobserve(img);
+                    }
+                });
+            }, {
+                rootMargin: '400px 0px', // start loading 400px before coming into viewport
+                threshold: 0.01
+            });
+            
+            lazyImages.forEach(img => imageObserver.observe(img));
         }
     }
 
