@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore the premium, luxury photo album of Özge Törer. A dedicated fan portfolio featuring photoshoots, events, behind-the-scenes, TV series, awards, and interactive gallery.">
+    <meta name="keywords" content="Özge Törer, Bala Hatun, Kuruluş Osman, Turkish Actress, Photo Album, Portfolio, Celebrity Gallery">
+    <meta name="author" content="Antigravity">
+    <title>Özge Törer | Luxury Fan Photo Album & Portfolio</title>
+    
+    <!-- Google Fonts: Playfair Display (Luxury Serif) & Inter (Modern Sans-serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="dark">
+
+    <!-- Loading Splash Screen -->
+    <div id="loader-wrapper">
+        <div class="loader-container">
+            <h1 class="loader-logo">ÖZGE TÖRER</h1>
+            <div class="loader-bar-container">
+                <div class="loader-progress"></div>
+            </div>
+            <p class="loader-text">Loading Gallery Experience</p>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="#" class="brand-logo" id="header-logo">
+                <span>Ö</span>zge <span>T</span>örer
+            </a>
+        </div>
+    </header>
+
+    <!-- Gallery Section -->
+    <section id="gallery-section" class="gallery-section">
+        <div class="gallery-container">
+
+            <!-- Empty State for Favorites or Search -->
+            <div id="gallery-empty-state" class="empty-state hidden">
+                <i class="fa-regular fa-folder-open"></i>
+                <h3>No Photos Found</h3>
+                <p>Try refining your search or add items to your favorites to see them here.</p>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Javascript will inject photos dynamically here -->
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Lightbox, Carousel & Image Viewer Modal -->
+    <div id="lightbox-modal" class="lightbox-modal">
+        <!-- Lightbox Toolbar -->
+        <div class="lightbox-toolbar">
+            <button class="lightbox-toolbar-btn" id="lightbox-play-btn" title="Start/Pause Slideshow">
+                <i class="fa-solid fa-play"></i>
+            </button>
+            <button class="lightbox-toolbar-btn" id="lightbox-fs-btn" title="Toggle Fullscreen">
+                <i class="fa-solid fa-expand"></i>
+            </button>
+            <button class="lightbox-toolbar-btn" id="lightbox-download-btn" title="Download Image">
+                <i class="fa-solid fa-download"></i>
+            </button>
+            <button class="lightbox-toolbar-btn close-btn" id="lightbox-close" title="Close">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        
+        <div class="lightbox-content-container">
+            <!-- Image Frame -->
+            <div class="lightbox-image-wrapper">
+                <img src="" alt="" id="lightbox-image" class="lightbox-image">
+                
+                <!-- Autoplay / Slideshow progress bar -->
+                <div class="slideshow-progress-bar">
+                    <div class="slideshow-progress" id="slideshow-progress"></div>
+                </div>
+            </div>
+            
+            <!-- Controls -->
+            <button class="lightbox-arrow arrow-left" id="lightbox-prev" aria-label="Previous image">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="lightbox-arrow arrow-right" id="lightbox-next" aria-label="Next image">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Luxury Footer -->
+    <footer class="luxury-footer">
+        <div class="footer-container">
+            <div class="footer-socials">
+                <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+</body>
+</html>
