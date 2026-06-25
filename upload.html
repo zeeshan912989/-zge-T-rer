@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Photo | Özge Törer Premium Fan Portal</title>
+    
+    <!-- Google Fonts: Playfair Display (Luxury Serif) & Inter (Modern Sans-serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-gold: #d4af37;
+            --primary-gold-hover: #f3e5ab;
+            --bg-main: #050506;
+            --bg-surface: #0a0a0c;
+            --bg-glass: rgba(10, 10, 12, 0.7);
+            --border-color: rgba(212, 175, 55, 0.15);
+            --text-color: #f5f5f7;
+            --text-muted: #8e8e93;
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.6);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 40%);
+        }
+
+        .upload-container {
+            width: 100%;
+            max-width: 580px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: var(--shadow-lg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: relative;
+            z-index: 10;
+        }
+
+        .upload-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .brand-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            color: var(--text-color);
+            text-decoration: none;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .brand-logo span {
+            color: var(--primary-gold);
+        }
+
+        .upload-title {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary-gold);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .input-control {
+            width: 100%;
+            background-color: rgba(5, 5, 6, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            border-radius: 6px;
+            padding: 12px 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+        }
+
+        .input-control:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
+        }
+
+        textarea.input-control {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Custom File Input Styling */
+        .file-upload-wrapper {
+            position: relative;
+            border: 2px dashed rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            background-color: rgba(5, 5, 6, 0.3);
+        }
+
+        .file-upload-wrapper:hover {
+            border-color: var(--primary-gold);
+            background-color: rgba(212, 175, 55, 0.03);
+        }
+
+        .file-upload-wrapper i {
+            font-size: 2.5rem;
+            color: var(--primary-gold);
+            margin-bottom: 12px;
+        }
+
+        .file-upload-wrapper p {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            margin-bottom: 6px;
+        }
+
+        .file-upload-wrapper span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .file-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-preview {
+            margin-top: 15px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-preview img {
+            max-width: 100%;
+            max-height: 150px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        .file-preview-name {
+            font-size: 0.8rem;
+            color: var(--primary-gold);
+        }
+
+        /* Gold Action Buttons */
+        .btn-gold {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-gold), #b3912b);
+            border: none;
+            color: #000;
+            padding: 14px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .btn-gold:hover {
+            background: linear-gradient(135deg, var(--primary-gold-hover), var(--primary-gold));
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-gold:active {
+            transform: translateY(0);
+        }
+
+        .btn-gold:disabled {
+            background: #444;
+            color: #888;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .upload-footer {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-link:hover {
+            color: var(--primary-gold);
+        }
+
+        /* Spinner for loading */
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: #000;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success/Error Alert Banner styles */
+        .alert-banner {
+            background-color: rgba(220, 53, 69, 0.15);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            color: #ea868f;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            display: none;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .alert-banner.success {
+            background-color: rgba(40, 167, 69, 0.15);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+            color: #75ec88;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="upload-container">
+        <div class="upload-header">
+            <a href="/" class="brand-logo"><span>Ö</span>zge <span>T</span>örer</a>
+            <div class="upload-title">Image Upload Portal</div>
+        </div>
+
+        <div id="alertBox" class="alert-banner">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span id="alertMsg">Error message goes here</span>
+        </div>
+
+        <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
+            
+            <!-- Drag and Drop Image Box -->
+            <div class="form-group">
+                <label>Select Portfolio Image *</label>
+                <div class="file-upload-wrapper" id="dropArea">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <p id="uploadText">Click or Drag & Drop Image Here</p>
+                    <span>Supports JPG, JPEG, PNG, WEBP, GIF (Max 10MB)</span>
+                    <input type="file" name="image" id="fileInput" class="file-input" accept="image/*" required>
+                </div>
+                
+                <div class="file-preview" id="filePreview">
+                    <img src="" id="previewImg" alt="Selected Preview">
+                    <div class="file-preview-name" id="previewName">filename.jpg</div>
+                </div>
+            </div>
+
+            <!-- Title input -->
+            <div class="form-group">
+                <label for="title">Photo Title (Optional)</label>
+                <input type="text" name="title" id="title" class="input-control" placeholder="e.g. Elegant Studio Portrait">
+            </div>
+
+            <!-- Category selector -->
+            <div class="form-group">
+                <label for="category">Album Category *</label>
+                <select name="category" id="category" class="input-control" required>
+                    <option value="photoshoots">Photoshoots</option>
+                    <option value="events">Events</option>
+                    <option value="bts">Behind the Scenes</option>
+                    <option value="tv-series">TV Series (Kuruluş: Osman)</option>
+                    <option value="awards">Awards</option>
+                </select>
+            </div>
+
+            <!-- Description textarea -->
+            <div class="form-group">
+                <label for="description">Description (Optional)</label>
+                <textarea name="description" id="description" class="input-control" placeholder="Enter brief details about this photo..."></textarea>
+            </div>
+
+            <!-- Simple password protection -->
+            <div class="form-group">
+                <label for="password">Security Password *</label>
+                <input type="password" name="password" id="password" class="input-control" placeholder="Enter 'torer' to authorize upload" required>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-gold" id="submitBtn">
+                <span>Upload to Gallery</span>
+                <div class="spinner" id="btnSpinner"></div>
+            </button>
+
+        </form>
+
+        <div class="upload-footer">
+            <a href="/" class="back-link">
+                <i class="fa-solid fa-arrow-left"></i> Back to Gallery Website
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const dropArea = document.getElementById('dropArea');
+        const filePreview = document.getElementById('filePreview');
+        const previewImg = document.getElementById('previewImg');
+        const previewName = document.getElementById('previewName');
+        const uploadText = document.getElementById('uploadText');
+        const uploadForm = document.getElementById('uploadForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnSpinner = document.getElementById('btnSpinner');
+        const alertBox = document.getElementById('alertBox');
+        const alertMsg = document.getElementById('alertMsg');
+
+        // Trigger file select preview
+        fileInput.addEventListener('change', function(e) {
+            handleFileSelect(this.files[0]);
+        });
+
+        // Drag-and-drop mechanics
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight(e) {
+            e.preventDefault();
+            dropArea.style.borderColor = 'var(--primary-gold)';
+            dropArea.style.backgroundColor = 'rgba(212, 175, 55, 0.05)';
+        }
+
+        function unhighlight(e) {
+            e.preventDefault();
+            dropArea.style.borderColor = 'rgba(212, 175, 55, 0.3)';
+            dropArea.style.backgroundColor = 'rgba(5, 5, 6, 0.3)';
+        }
+
+        dropArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            
+            if(files.length > 0) {
+                fileInput.files = files;
+                handleFileSelect(files[0]);
+            }
+        });
+
+        function handleFileSelect(file) {
+            if (!file) return;
+
+            // Check if it is an image
+            if (!file.type.match('image.*')) {
+                showAlert('Only image files are allowed.');
+                fileInput.value = '';
+                filePreview.style.display = 'none';
+                return;
+            }
+
+            // Check file size (10MB)
+            if (file.size > 10 * 1024 * 1024) {
+                showAlert('File size exceeds the 10MB limit.');
+                fileInput.value = '';
+                filePreview.style.display = 'none';
+                return;
+            }
+
+            hideAlert();
+            previewName.textContent = `${file.name} (${(file.size / (1024 * 1024)).toFixed(2)} MB)`;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+                filePreview.style.display = 'flex';
+                uploadText.textContent = 'Change Selected Image';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Show spinner on form submit
+        uploadForm.addEventListener('submit', function(e) {
+            const passwordVal = document.getElementById('password').value;
+            if (passwordVal !== 'torer') {
+                e.preventDefault();
+                showAlert('Authorization password is incorrect.');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            btnSpinner.style.display = 'block';
+        });
+
+        function showAlert(msg) {
+            alertMsg.textContent = msg;
+            alertBox.style.display = 'flex';
+            alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function hideAlert() {
+            alertBox.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
