@@ -1413,7 +1413,7 @@ body[data-theme="light"] .luxury-footer {
     }
     
     .gallery-grid {
-        column-count: 1;
+        column-count: 2;
     }
     
     .lightbox-modal {
@@ -1440,23 +1440,22 @@ body[data-theme="light"] .luxury-footer {
     }
     
     .lightbox-image-wrapper {
-        max-height: 60vh;
+        max-height: 80vh;
     }
     
     .lightbox-image {
-        max-height: 60vh;
-    }
-    
-    .details-top {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
+        max-height: 80vh;
     }
 }
 
 @media (max-width: 480px) {
     .brand-logo {
         font-size: 1.4rem;
+    }
+    
+    .gallery-grid {
+        column-count: 1;
+        column-gap: 12px;
     }
     
     .hero-title {
