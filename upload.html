@@ -374,6 +374,19 @@
         const alertBox = document.getElementById('alertBox');
         const alertMsg = document.getElementById('alertMsg');
 
+        // Check if running on Vercel/production (Stateless static hosting)
+        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && window.location.hostname !== '') {
+            setTimeout(() => {
+                showAlert('⚠️ NOTE: Uploading images is only supported when running the app locally on your computer. To add photos, start the local server, go to http://localhost:3000/upload, and upload them there. Once added, push the updated gallery_data.js to GitHub to deploy them on Vercel.');
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.5';
+                document.getElementById('password').disabled = true;
+                fileInput.disabled = true;
+                dropArea.style.pointerEvents = 'none';
+                dropArea.style.opacity = '0.5';
+            }, 100);
+        }
+
         // Trigger file select preview
         fileInput.addEventListener('change', function(e) {
             handleFileSelect(this.files[0]);
